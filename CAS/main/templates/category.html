@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width; initial-scale=1">
+</head>
+<body style="background-color: #004F48">
+ <nav class="navbar navbar-dark bg-dark navbar-expand-lg p-3 mb-4" >
+            <a href="{% url 'mainPage' %}" class="navbar-brand">KHU Software Bank</a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item" >
+                            <a href="{% url 'mainPage' %}" class = "nav-link" >Main Page</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a href="https://www.khu.ac.ir" class = "nav-link">About Us</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a href="https://www.t.me/farzadfaghih" class = "nav-link">Contact Us</a>
+                        </li>
+                        <li> <form class="payment-link" action="{% url 'paymentPage' %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-primary ml-3" > Payment </button>
+                             </form>
+                        </li>
+                        <li> <form class="logout-link" action="{% url 'logoutPage' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit " class="btn btn-danger ml-3" > Logout </button>
+                             </form>
+                        </li>
+                    </ul>
+                </div>
+        </nav>
+    <div class="container">
+
+        <div class="row mt-4">
+
+            <div class="col-12">
+                <div class="row">
+                {% for post in posts %}
+                    <div class=" col-md-5 bg-light rounded p-4 ml-5 ">
+                            <h4>{{ post.Title }}</h4>
+                            <img src="{{ post.photo.url }} " width="50%" height="50%" class="m-2" >
+                             <p> {{ post.excerpt }} </p>
+                            <a href="{% url 'postPage' post.slug %}" class="btn btn-info mt-1" >Continue ...</a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <script src ="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src ="{% static 'js/popper.min.js' %}"></script>
+    <script src ="{% static 'js/jquery.min.js' %}"></script>
+</body>
+</html>
